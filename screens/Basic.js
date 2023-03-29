@@ -10,7 +10,7 @@ import {
   Button,
   TouchableOpacity,
 } from "react-native";
-export default function Basic() {
+export default function Basic({navigation}) {
 
   const [radioButtons, setRadioButtons] = useState([
     {
@@ -99,7 +99,11 @@ function onPressRadioButton(radioButtonsArray) {
       <TouchableOpacity>
         <Text style={styles.forgot_button}>Forgot Password?</Text> 
       </TouchableOpacity> 
-      <TouchableOpacity style={styles.loginBtn}>
+      <TouchableOpacity style={styles.loginBtn}
+      onPress={() =>
+        navigation.navigate('Professional')
+      }
+      >
         <Text style={styles.loginText}>NEXT</Text> 
       </TouchableOpacity> 
     </View> 

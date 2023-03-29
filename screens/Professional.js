@@ -10,7 +10,7 @@ import {
   Button,
   TouchableOpacity,
 } from "react-native";
-export default function Professional() {
+export default function Professional({navigation}) {
     const data = [
         { label: 'Post Graduate', value: '1' },
         { label: 'Graduate', value: '2' },
@@ -172,11 +172,19 @@ export default function Professional() {
         //renderItem={renderItem}
       />
 
-<TouchableOpacity style={styles.loginBtn}>
+<TouchableOpacity style={styles.loginBtn}
+  onPress={() =>
+    navigation.navigate('Basic')
+  }
+>
         <Text style={styles.loginText}>Previous</Text> 
       </TouchableOpacity> 
 
-      <TouchableOpacity style={styles.loginBtn}>
+      <TouchableOpacity style={styles.loginBtn}
+      onPress={() =>
+        navigation.navigate('Address')
+      }
+      >
         <Text style={styles.loginText}>Next</Text> 
       </TouchableOpacity> 
 
