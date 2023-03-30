@@ -1,6 +1,7 @@
 import { StatusBar } from "expo-status-bar";
 import React, { useState } from "react";
 import RadioGroup from 'react-native-radio-buttons-group';
+import { useValidation } from 'react-native-form-validator'
 import {
   StyleSheet,
   Text,
@@ -9,6 +10,7 @@ import {
   TextInput,
   Button,
   TouchableOpacity,
+  Alert
 } from "react-native";
 export default function Basic({navigation}) {
 
@@ -34,17 +36,42 @@ function onPressRadioButton(radioButtonsArray) {
   const [fname, setFname] = useState("");
   const [lname, setLname] = useState("");
   const [phone, setPhone] = useState("");
+
+  const checkName = () => {
+    //Check for the Name TextInput
+    if (!fname.trim()) {
+      alert('Please Enter Name');
+      return;
+    }
+  };
+
+  const { validate, isFieldInError, getErrorsInField, getErrorMessages } =
+    useValidation({
+      state: { fname,lname,email,phone,password,cpassword },
+    });
+
+  const _onPressButton = () => {
+    validate({
+      fname: { minlength: 3, maxlength: 7, required: true },
+      lname: { minlength: 3, maxlength: 7, required: true },
+      email: { email: true },
+      phone: { numbers: true },
+      cpassword: { equalPassword: password },
+    });
+  };
+
   return (
     
     <View style={styles.container}>
       <StatusBar style="auto" />
-      <Text style={{fontWeight:"bold",fontSize:25}}>Register</Text>
+      <Text style={{fontWeight:"bold",fontSize:25,marginBottom:50}}>Register</Text>
       <View style={styles.inputView}>
         <TextInput
           style={styles.TextInput}
           placeholder="First Name*"
           placeholderTextColor="#003f5c"
-          onChangeText={(email) => setFname(fname)}
+          onChangeText={(fname) => setFname(fname)}
+          //onBlur={checkName}
         /> 
       </View> 
       <View style={styles.inputView}>
@@ -53,6 +80,7 @@ function onPressRadioButton(radioButtonsArray) {
           placeholder="Last Name*"
           placeholderTextColor="#003f5c"
           onChangeText={(lname) => setLname(lname)}
+          //onBlur={checkTextInput}
         /> 
       </View> 
       <View style={styles.inputView}>
@@ -61,9 +89,10 @@ function onPressRadioButton(radioButtonsArray) {
           placeholder="Phone Number*"
           placeholderTextColor="#003f5c"
           onChangeText={(phone) => setPhone(phone)}
+          //onBlur={checkTextInput}
         /> 
       </View> 
-      <View>
+      <View style={{padding:10}}>
         <Text>Gender</Text>
       <RadioGroup 
             radioButtons={radioButtons} 
@@ -72,19 +101,24 @@ function onPressRadioButton(radioButtonsArray) {
       </View>
       <View style={styles.inputView}>
         <TextInput
+        
+          
           style={styles.TextInput}
           placeholder="Email*"
           placeholderTextColor="#003f5c"
           onChangeText={(email) => setEmail(email)}
+          //onBlur={checkTextInput}
         /> 
       </View> 
       <View style={styles.inputView}>
         <TextInput
           style={styles.TextInput}
-          placeholder="Password."
+          placeholder="Password*"
           placeholderTextColor="#003f5c"
           secureTextEntry={true}
           onChangeText={(password) => setPassword(password)}
+          //type="password"
+          //onBlur={checkTextInput}
         /> 
       </View> 
       <View style={styles.inputView}>
@@ -94,18 +128,23 @@ function onPressRadioButton(radioButtonsArray) {
           placeholderTextColor="#003f5c"
           secureTextEntry={true}
           onChangeText={(cpassword) => setCpassword(cpassword)}
+          //onBlur={checkTextInput}
         /> 
+
+{isFieldInError('cpassword') &&
+        getErrorsInField('cpassword').map(errorMessage => (
+          <Text>{errorMessage}</Text>
+        ))}
+
       </View> 
-      <TouchableOpacity>
-        <Text style={styles.forgot_button}>Forgot Password?</Text> 
-      </TouchableOpacity> 
+      <Text>{getErrorMessages()}</Text>
       <TouchableOpacity style={styles.loginBtn}
-      onPress={() =>
-        navigation.navigate('Professional')
-      }
+      onPress={_onPressButton}
+      
       >
         <Text style={styles.loginText}>NEXT</Text> 
       </TouchableOpacity> 
+      
     </View> 
   );
 }
@@ -115,6 +154,7 @@ const styles = StyleSheet.create({
     backgroundColor: "#fff",
     alignItems: "center",
     justifyContent: "center",
+    marginBottom:50
   },
   image: {
     marginBottom: 40,
