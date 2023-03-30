@@ -139,6 +139,10 @@ export default function Professional({navigation}) {
           placeholderTextColor="#003f5c"
           onChangeText={(exp) => setExp(exp)}
         /> 
+        {isFieldInError('exp') &&
+        getErrorsInField('exp').map(errorMessage => (
+          <Text>{errorMessage}</Text>
+        ))}
       </View> 
 
       <Dropdown
@@ -186,7 +190,7 @@ export default function Professional({navigation}) {
 <TouchableOpacity style={styles.loginBtn}
   onPress={_onPressButton}
 >
-        <Text style={styles.loginText}>Previous</Text> 
+        <Text style={styles.loginText}>Check</Text> 
       </TouchableOpacity> 
 
       <TouchableOpacity style={styles.loginBtn}

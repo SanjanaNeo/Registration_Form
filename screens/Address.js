@@ -2,6 +2,8 @@ import { StatusBar } from "expo-status-bar";
 import React, { useState } from "react";
 import { Dropdown } from 'react-native-element-dropdown'
 import { useValidation } from 'react-native-form-validator'
+import Icon from 'react-native-vector-icons/FontAwesome'
+
 import {
   StyleSheet,
   Text,
@@ -27,19 +29,19 @@ export default function Address() {
   /*const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [cpassword, setCpassword] = useState("");*/
-  const [addr, setAddr] = useState("");
+  const [Address, setAddress] = useState("");
   const [lm, setLM] = useState("");
   const [city, setCity] = useState("");
   const [pincode, setPincode] = useState("");
 
   const { validate, isFieldInError, getErrorsInField, getErrorMessages } =
     useValidation({
-      state: { addr,lm,city,pincode},
+      state: { Address,lm,city,pincode},
     });
 
     const _onPressButton = () => {
       validate({
-        addr: {required: true },
+        Address: {required: true },
         lm: {required: true },
         city: {required:true},
         pincode: { numbers: true, required:true},
@@ -55,18 +57,20 @@ export default function Address() {
         
       </View>
       <View style={styles.inputView}>
+      <Icon name="building" size={30} color="#900" />
         <TextInput
           style={styles.TextInput}
           placeholder="Address"
           placeholderTextColor="#003f5c"
-          onChangeText={(addr) => setAddr(addr)}
+          onChangeText={(Address) => setAddress(Address)}
         /> 
-        {isFieldInError('addr') &&
-        getErrorsInField('addr').map(errorMessage => (
+        {isFieldInError('Address') &&
+        getErrorsInField('Address').map(errorMessage => (
           <Text>{errorMessage}</Text>
         ))}
       </View> 
       <View style={styles.inputView}>
+      <Icon name="building" size={30} color="#900" />
         <TextInput
           style={styles.TextInput}
           placeholder="Landmark"
@@ -79,6 +83,7 @@ export default function Address() {
         ))}
       </View> 
       <View style={styles.inputView}>
+      <Icon name="building" size={30} color="#900" />
         <TextInput
           style={styles.TextInput}
           placeholder="City"
@@ -113,6 +118,7 @@ export default function Address() {
       />
       
       <View style={styles.inputView}>
+      <Icon name="building" size={30} color="#900" />
         <TextInput
           style={styles.TextInput}
           placeholder="Pincode"
@@ -130,10 +136,17 @@ export default function Address() {
 
 
       
-<TouchableOpacity style={styles.loginBtn}>
+<TouchableOpacity style={styles.loginBtn}
+onPress={_onPressButton}
+>
+        <Text style={styles.loginText}>Check</Text> 
+      </TouchableOpacity> 
+      
+      <TouchableOpacity style={styles.loginBtn}
+
+>
         <Text style={styles.loginText}>Submit</Text> 
       </TouchableOpacity> 
-
       
 
 </View>

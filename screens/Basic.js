@@ -3,6 +3,7 @@ import React, { useState } from "react";
 import RadioGroup from 'react-native-radio-buttons-group';
 import { useValidation } from 'react-native-form-validator'
 import * as ImagePicker from 'expo-image-picker';
+import Icon from 'react-native-vector-icons/FontAwesome'
 import {
   StyleSheet,
   Text,
@@ -33,28 +34,28 @@ function onPressRadioButton(radioButtonsArray) {
 
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-  const [cpassword, setCpassword] = useState("");
-  const [fname, setFname] = useState("");
-  const [lname, setLname] = useState("");
-  const [phone, setPhone] = useState("");
+  const [ConfirmPassword, setConfirmPassword] = useState("");
+  const [FirstName, setFirstName] = useState("");
+  const [LastName, setLastName] = useState("");
+  const [Phone, setPhone] = useState("");
 
   
 
   
   const { validate, isFieldInError, getErrorsInField, getErrorMessages } =
     useValidation({
-      state: { fname,lname,email,phone,password,cpassword },
+      state: { FirstName,LastName,email,Phone,password,ConfirmPassword },
     });
 
 
   const _onPressButton = () => {
     validate({
-      fname: { minlength: 3, maxlength: 7, required: true },
-      lname: { minlength: 3, maxlength: 7, required: true },
+      FirstName: { minlength: 3, maxlength: 7, required: true },
+      LastName: { minlength: 3, maxlength: 7, required: true },
       email: { email: true, required:true},
-      phone: { numbers: true, required:true},
+      Phone: { numbers: true, required:true},
       password: {required:true},
-      cpassword: { equalPassword: password,required:true },
+      ConfirmPassword: { equalPassword: password,required:true },
     });
   };
 
@@ -84,41 +85,45 @@ function onPressRadioButton(radioButtonsArray) {
       
       <Text style={{fontWeight:"bold",fontSize:25,marginBottom:50}}>Register</Text>
       <View style={styles.inputView}>
+      <Icon name="user" size={30} color="#900" />
         <TextInput
           style={styles.TextInput}
           placeholder="First Name*"
           placeholderTextColor="#003f5c"
-          onChangeText={(fname) => setFname(fname)}
+          onChangeText={(FirstName) => setFirstName(FirstName)}
+          
           //onBlur={checkName}
         /> 
-        {isFieldInError('fname') &&
-        getErrorsInField('fname').map(errorMessage => (
+        {isFieldInError('FirstName') &&
+        getErrorsInField('FirstName').map(errorMessage => (
           <Text>{errorMessage}</Text>
         ))}
       </View> 
       <View style={styles.inputView}>
+      <Icon name="user" size={30} color="#900" />
         <TextInput
           style={styles.TextInput}
           placeholder="Last Name*"
           placeholderTextColor="#003f5c"
-          onChangeText={(lname) => setLname(lname)}
+          onChangeText={(LastName) => setLastName(LastName)}
           //onBlur={checkTextInput}
         /> 
-        {isFieldInError('lname') &&
-        getErrorsInField('lname').map(errorMessage => (
+        {isFieldInError('LastName') &&
+        getErrorsInField('LastName').map(errorMessage => (
           <Text>{errorMessage}</Text>
         ))}
       </View> 
       <View style={styles.inputView}>
+      <Icon name="phone" size={30} color="#900" />
         <TextInput
           style={styles.TextInput}
           placeholder="Phone Number*"
           placeholderTextColor="#003f5c"
-          onChangeText={(phone) => setPhone(phone)}
+          onChangeText={(Phone) => setPhone(Phone)}
           //onBlur={checkTextInput}
         /> 
-        {isFieldInError('phone') &&
-        getErrorsInField('phone').map(errorMessage => (
+        {isFieldInError('Phone') &&
+        getErrorsInField('Phone').map(errorMessage => (
           <Text>{errorMessage}</Text>
         ))}
       </View> 
@@ -133,6 +138,7 @@ function onPressRadioButton(radioButtonsArray) {
         
       </View>
       <View style={styles.inputView}>
+      <Icon name="envelope" size={30} color="#900" />
         <TextInput
         
           
@@ -148,6 +154,7 @@ function onPressRadioButton(radioButtonsArray) {
         ))}
       </View> 
       <View style={styles.inputView}>
+      <Icon name="lock" size={30} color="#900" />
         <TextInput
           style={styles.TextInput}
           placeholder="Password*"
@@ -167,16 +174,17 @@ function onPressRadioButton(radioButtonsArray) {
       {image && <Image source={{ uri: image }} style={{ width: 200, height: 200 }} />}
     </View>
       <View style={styles.inputView}>
+      <Icon name="lock" size={30} color="#900" />
         <TextInput
           style={styles.TextInput}
           placeholder="Confirm Password*."
           placeholderTextColor="#003f5c"
           secureTextEntry={true}
-          onChangeText={(cpassword) => setCpassword(cpassword)}
+          onChangeText={(ConfirmPassword) => setConfirmPassword(ConfirmPassword)}
         /> 
 
-{isFieldInError('cpassword') &&
-        getErrorsInField('cpassword').map(errorMessage => (
+{isFieldInError('ConfirmPassword') &&
+        getErrorsInField('ConfirmPassword').map(errorMessage => (
           <Text>{errorMessage}</Text>
         ))}
 
@@ -185,7 +193,7 @@ function onPressRadioButton(radioButtonsArray) {
       <TouchableOpacity style={styles.loginBtn}
       onPress={_onPressButton}
       >
-        <Text style={styles.loginText}>Submit</Text> 
+        <Text style={styles.loginText}>Check</Text> 
       </TouchableOpacity> 
       <View>
         
