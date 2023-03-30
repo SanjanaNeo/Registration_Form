@@ -1,6 +1,7 @@
 import { StatusBar } from "expo-status-bar";
 import React, { useState } from "react";
 import { Dropdown } from 'react-native-element-dropdown'
+import { useValidation } from 'react-native-form-validator'
 import {
   StyleSheet,
   Text,
@@ -30,6 +31,21 @@ export default function Address() {
   const [lm, setLM] = useState("");
   const [city, setCity] = useState("");
   const [pincode, setPincode] = useState("");
+
+  const { validate, isFieldInError, getErrorsInField, getErrorMessages } =
+    useValidation({
+      state: { addr,lm,city,pincode},
+    });
+
+    const _onPressButton = () => {
+      validate({
+        addr: {required: true },
+        lm: {required: true },
+        city: {required:true},
+        pincode: { numbers: true, required:true},
+      });
+    };
+
   return (
     
     <View style={styles.container}>
@@ -45,6 +61,10 @@ export default function Address() {
           placeholderTextColor="#003f5c"
           onChangeText={(addr) => setAddr(addr)}
         /> 
+        {isFieldInError('addr') &&
+        getErrorsInField('addr').map(errorMessage => (
+          <Text>{errorMessage}</Text>
+        ))}
       </View> 
       <View style={styles.inputView}>
         <TextInput
@@ -53,6 +73,10 @@ export default function Address() {
           placeholderTextColor="#003f5c"
           onChangeText={(lm) => setLM(lm)}
         /> 
+        {isFieldInError('lm') &&
+        getErrorsInField('lm').map(errorMessage => (
+          <Text>{errorMessage}</Text>
+        ))}
       </View> 
       <View style={styles.inputView}>
         <TextInput
@@ -61,6 +85,10 @@ export default function Address() {
           placeholderTextColor="#003f5c"
           onChangeText={(city) => setCity(city)}
         /> 
+        {isFieldInError('city') &&
+        getErrorsInField('city').map(errorMessage => (
+          <Text>{errorMessage}</Text>
+        ))}
       </View> 
         
       <Dropdown
@@ -91,6 +119,10 @@ export default function Address() {
           placeholderTextColor="#003f5c"
           onChangeText={(pincode) => setPincode(pincode)}
         /> 
+        {isFieldInError('pincode') &&
+        getErrorsInField('pincode').map(errorMessage => (
+          <Text>{errorMessage}</Text>
+        ))}
       </View> 
 
 

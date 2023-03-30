@@ -1,6 +1,7 @@
 import { StatusBar } from "expo-status-bar";
 import React, { useState } from "react";
 import { Dropdown } from 'react-native-element-dropdown'
+import { useValidation } from 'react-native-form-validator'
 import {
   StyleSheet,
   Text,
@@ -41,20 +42,26 @@ export default function Professional({navigation}) {
   
         const [value, setValue] = useState(null);
     
-        
-  /*const [email, setEmail] = useState("");
-  const [password, setPassword] = useState("");
-  const [cpassword, setCpassword] = useState("");
-  const [fname, setFname] = useState("");
-  const [lname, setLname] = useState("");*/
   const [grade, setGrade] = useState("");
   const [exp, setExp] = useState("");
+
+  const { validate, isFieldInError, getErrorsInField, getErrorMessages } =
+    useValidation({
+      state: {grade,exp},
+    });
+
+    const _onPressButton = () => {
+      validate({
+        grade: {required: true },
+        exp: {required: true }
+      });
+    };
   return (
     
     <View style={styles.container}>
       <StatusBar style="auto" />
       <View>
-      <Text style={{fontWeight:"bold",fontSize:35}}>Your Info</Text>
+      <Text style={{fontWeight:"bold",fontSize:30}}>Your Info</Text>
         <Text style={{fontWeight:"bold",fontSize:20,marginTop:10,marginBottom:10}}>Educational Info</Text>
       </View>
       
@@ -72,7 +79,7 @@ export default function Professional({navigation}) {
         maxHeight={300}
         labelField="label"
         valueField="value"
-        placeholder="Select item"
+        placeholder="Education"
         searchPlaceholder="Search..."
         value={value}
         onChange={item => {
@@ -93,7 +100,7 @@ export default function Professional({navigation}) {
         maxHeight={300}
         labelField="label"
         valueField="value"
-        placeholder="Select item"
+        placeholder="Year of passing"
         searchPlaceholder="Search..."
         value={value}
         onChange={item => {
@@ -109,6 +116,10 @@ export default function Professional({navigation}) {
           placeholderTextColor="#003f5c"
           onChangeText={(grade) => setGrade(grade)}
         /> 
+        {isFieldInError('grade') &&
+        getErrorsInField('grade').map(errorMessage => (
+          <Text>{errorMessage}</Text>
+        ))}
       </View> 
 
       <View style={{
@@ -141,7 +152,7 @@ export default function Professional({navigation}) {
         maxHeight={300}
         labelField="label"
         valueField="value"
-        placeholder="Select item"
+        placeholder="Designation"
         searchPlaceholder="Search..."
         value={value}
         onChange={item => {
@@ -162,7 +173,7 @@ export default function Professional({navigation}) {
         maxHeight={300}
         labelField="label"
         valueField="value"
-        placeholder="Select item"
+        placeholder="Department"
         searchPlaceholder="Search..."
         value={value}
         onChange={item => {
@@ -173,9 +184,7 @@ export default function Professional({navigation}) {
       />
 
 <TouchableOpacity style={styles.loginBtn}
-  onPress={() =>
-    navigation.navigate('Basic')
-  }
+  onPress={_onPressButton}
 >
         <Text style={styles.loginText}>Previous</Text> 
       </TouchableOpacity> 
@@ -197,7 +206,8 @@ const styles = StyleSheet.create({
     backgroundColor: "#fff",
     alignItems: "center",
     justifyContent: "center",
-    marginBottom:"0.1%"
+    marginBottom:"1%",
+    paddingBottom:'10%'
   },
   image: {
     marginBottom: 40,
@@ -231,7 +241,7 @@ const styles = StyleSheet.create({
     backgroundColor: "#FF1493",
   },
   dropdown: {
-    margin: 16,
+    margin: 5,
     height: 45,
     width:'70%',
     backgroundColor: '#FFC0CB',
