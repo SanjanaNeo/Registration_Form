@@ -79,7 +79,7 @@ export default function Professional({navigation}) {
         maxHeight={300}
         labelField="label"
         valueField="value"
-        placeholder="Education"
+        placeholder="Select your qualification"
         searchPlaceholder="Search..."
         value={value}
         onChange={item => {
@@ -100,7 +100,7 @@ export default function Professional({navigation}) {
         maxHeight={300}
         labelField="label"
         valueField="value"
-        placeholder="Year of passing"
+        placeholder="Enter year of passing"
         searchPlaceholder="Search..."
         value={value}
         onChange={item => {
@@ -112,6 +112,7 @@ export default function Professional({navigation}) {
 <View style={styles.inputView}>
         <TextInput
           style={styles.TextInput}
+          placeholder="Enter your grade or percentage"
           placeholderTextColor="#003f5c"
           onChangeText={(grade) => setGrade(grade)}
         /> 
@@ -135,6 +136,7 @@ export default function Professional({navigation}) {
 <View style={styles.inputView}>
         <TextInput
           style={styles.TextInput}
+          placeholder="Enter the years of experience"
           placeholderTextColor="#003f5c"
           onChangeText={(exp) => setExp(exp)}
         /> 
@@ -155,7 +157,7 @@ export default function Professional({navigation}) {
         maxHeight={300}
         labelField="label"
         valueField="value"
-        placeholder="Designation"
+        placeholder="Select designation"
         searchPlaceholder="Search..."
         value={value}
         onChange={item => {
@@ -176,7 +178,7 @@ export default function Professional({navigation}) {
         maxHeight={300}
         labelField="label"
         valueField="value"
-        placeholder="Department"
+        placeholder="Select your domain"
         searchPlaceholder="Search..."
         value={value}
         onChange={item => {
