@@ -53,7 +53,7 @@ export default function Professional({navigation}) {
     const _onPressButton = () => {
       validate({
         grade: {required: true },
-        exp: {required: true }
+        exp: {number:true,required: true }
       });
     };
   return (
@@ -107,7 +107,6 @@ export default function Professional({navigation}) {
           setValue(item.value);
         }}
 
-        //renderItem={renderItem}
       />
 <Text style={{fontWeight:"bold"}}>Grade*</Text>
 <View style={styles.inputView}>

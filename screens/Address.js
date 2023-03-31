@@ -16,35 +16,34 @@ import {
 export default function Address() {
     const data = [
         { label: 'Maharashtra', value: '1' },
-        { label: 'Goa', value: '2' },
-        { label: 'Gujrat', value: '3' },
-        { label: 'Punjab', value: '4' },
+        { label: 'Gujrat', value: '2' },
+        { label: 'Karnataka', value: '3' },
+        { label: 'Madhya Pradesh', value: '4' },
+        { label: 'Delhi', value: '5' },
+        { label: 'Others', value: '5' },
       ];
-
-      
-  
-        const [value, setValue] = useState(null);
+      const [value, setValue] = useState(null);
     
         
   /*const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [cpassword, setCpassword] = useState("");*/
   const [Address, setAddress] = useState("");
-  const [lm, setLM] = useState("");
+  const [Landmark, setLandmark] = useState("");
   const [city, setCity] = useState("");
   const [pincode, setPincode] = useState("");
 
   const { validate, isFieldInError, getErrorsInField, getErrorMessages } =
     useValidation({
-      state: { Address,lm,city,pincode},
+      state: { Address,Landmark,city,pincode},
     });
 
     const _onPressButton = () => {
       validate({
-        Address: {required: true },
-        lm: {required: true },
+        Address: {minlength: 3,required: true },
+        Landmark: {minlength: 3,required: true },
         city: {required:true},
-        pincode: { numbers: true, required:true},
+        pincode: { minlength: 6,maxlength: 6,numbers: true, required:true},
       });
     };
 
@@ -57,7 +56,7 @@ export default function Address() {
         
       </View>
       <View style={styles.inputView}>
-      <Icon name="building" size={30} color="#900" />
+      <Icon name="building" size={30} color="#900" style={{padding:10}}/>
         <TextInput
           style={styles.TextInput}
           placeholder="Address"
@@ -70,20 +69,20 @@ export default function Address() {
         ))}
       </View> 
       <View style={styles.inputView}>
-      <Icon name="building" size={30} color="#900" />
+      <Icon name="building" size={30} color="#900" style={{padding:10}}/>
         <TextInput
           style={styles.TextInput}
           placeholder="Landmark"
           placeholderTextColor="#003f5c"
-          onChangeText={(lm) => setLM(lm)}
+          onChangeText={(Landmark) => setLandmark(Landmark)}
         /> 
-        {isFieldInError('lm') &&
-        getErrorsInField('lm').map(errorMessage => (
+        {isFieldInError('Landmark') &&
+        getErrorsInField('Landmark').map(errorMessage => (
           <Text>{errorMessage}</Text>
         ))}
       </View> 
       <View style={styles.inputView}>
-      <Icon name="building" size={30} color="#900" />
+      <Icon name="building" size={30} color="#900" style={{padding:10}}/>
         <TextInput
           style={styles.TextInput}
           placeholder="City"
@@ -113,12 +112,10 @@ export default function Address() {
         onChange={item => {
           setValue(item.value);
         }}
-
-        //renderItem={renderItem}
       />
       
       <View style={styles.inputView}>
-      <Icon name="building" size={30} color="#900" />
+      <Icon name="building" size={30} color="#900" style={{padding:10}}/>
         <TextInput
           style={styles.TextInput}
           placeholder="Pincode"
@@ -164,10 +161,12 @@ const styles = StyleSheet.create({
     marginBottom: 40,
   },
   inputView: {
+    flex:1,
+    flexDirection:"row",
     backgroundColor: "#FFC0CB",
     borderRadius: 30,
     width: "70%",
-    height: 45,
+    height: 30,
     marginBottom: 20,
     alignItems: "center",
   },

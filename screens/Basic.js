@@ -12,7 +12,8 @@ import {
   TextInput,
   Button,
   TouchableOpacity,
-  Alert
+  Alert,
+  ScrollView
 } from "react-native";
 export default function Basic({navigation}) {
 
@@ -62,7 +63,6 @@ function onPressRadioButton(radioButtonsArray) {
   const [image, setImage] = useState(null);
 
   const pickImage = async () => {
-    // No permissions request is necessary for launching the image library
     let result = await ImagePicker.launchImageLibraryAsync({
       mediaTypes: ImagePicker.MediaTypeOptions.All,
       allowsEditing: true,
@@ -82,31 +82,37 @@ function onPressRadioButton(radioButtonsArray) {
     <View style={styles.container}>
       
       <StatusBar style="auto" />
+     
+      <Text style={{fontWeight:"bold",fontSize:25,marginBottom:0}}>Register</Text>
       
-      <Text style={{fontWeight:"bold",fontSize:25,marginBottom:50}}>Register</Text>
+      
+      <View style={{alignItems: 'center', justifyContent: 'center' }}>
+      <Button title="Pick an image from camera roll" onPress={pickImage} />
+      {image && <Image source={{ uri: image }} style={{ width: 80, height: 80 }} />}
+    </View>
+      
       <View style={styles.inputView}>
-      <Icon name="user" size={30} color="#900" />
+      <Icon name="user" size={30} color="#900" style={{padding:10}}/>
         <TextInput
           style={styles.TextInput}
           placeholder="First Name*"
           placeholderTextColor="#003f5c"
           onChangeText={(FirstName) => setFirstName(FirstName)}
           
-          //onBlur={checkName}
         /> 
+         
         {isFieldInError('FirstName') &&
         getErrorsInField('FirstName').map(errorMessage => (
           <Text>{errorMessage}</Text>
         ))}
       </View> 
       <View style={styles.inputView}>
-      <Icon name="user" size={30} color="#900" />
+      <Icon name="user" size={30} color="#900" style={{padding:10}}/>
         <TextInput
           style={styles.TextInput}
           placeholder="Last Name*"
           placeholderTextColor="#003f5c"
           onChangeText={(LastName) => setLastName(LastName)}
-          //onBlur={checkTextInput}
         /> 
         {isFieldInError('LastName') &&
         getErrorsInField('LastName').map(errorMessage => (
@@ -114,13 +120,12 @@ function onPressRadioButton(radioButtonsArray) {
         ))}
       </View> 
       <View style={styles.inputView}>
-      <Icon name="phone" size={30} color="#900" />
+      <Icon name="phone" size={30} color="#900" style={{padding:10}}/>
         <TextInput
           style={styles.TextInput}
           placeholder="Phone Number*"
           placeholderTextColor="#003f5c"
           onChangeText={(Phone) => setPhone(Phone)}
-          //onBlur={checkTextInput}
         /> 
         {isFieldInError('Phone') &&
         getErrorsInField('Phone').map(errorMessage => (
@@ -138,7 +143,7 @@ function onPressRadioButton(radioButtonsArray) {
         
       </View>
       <View style={styles.inputView}>
-      <Icon name="envelope" size={30} color="#900" />
+      <Icon name="envelope" size={30} color="#900" style={{padding:10}}/>
         <TextInput
         
           
@@ -146,7 +151,6 @@ function onPressRadioButton(radioButtonsArray) {
           placeholder="Email*"
           placeholderTextColor="#003f5c"
           onChangeText={(email) => setEmail(email)}
-          //onBlur={checkTextInput}
         /> 
         {isFieldInError('email') &&
         getErrorsInField('email').map(errorMessage => (
@@ -154,27 +158,22 @@ function onPressRadioButton(radioButtonsArray) {
         ))}
       </View> 
       <View style={styles.inputView}>
-      <Icon name="lock" size={30} color="#900" />
+      <Icon name="lock" size={30} color="#900" style={{padding:10}}/>
         <TextInput
           style={styles.TextInput}
           placeholder="Password*"
           placeholderTextColor="#003f5c"
           secureTextEntry={true}
           onChangeText={(password) => setPassword(password)}
-          //type="password"
-          //onBlur={checkTextInput}
         /> 
         {isFieldInError('password') &&
         getErrorsInField('password').map(errorMessage => (
           <Text>{errorMessage}</Text>
         ))}
       </View> 
-      <View style={{ flex: 1, alignItems: 'center', justifyContent: 'center' }}>
-      <Button title="Pick an image from camera roll" onPress={pickImage} />
-      {image && <Image source={{ uri: image }} style={{ width: 200, height: 200 }} />}
-    </View>
+      
       <View style={styles.inputView}>
-      <Icon name="lock" size={30} color="#900" />
+      <Icon name="lock" size={30} color="#900" style={{padding:10}}/>
         <TextInput
           style={styles.TextInput}
           placeholder="Confirm Password*."
@@ -206,7 +205,7 @@ function onPressRadioButton(radioButtonsArray) {
 >
         <Text style={styles.loginText}>Next</Text> 
       </TouchableOpacity> 
-      
+     
     </View> 
   );
 }
@@ -215,21 +214,23 @@ const styles = StyleSheet.create({
     flex: 1,
     backgroundColor: "#fff",
     alignItems: "center",
-    justifyContent: "center",
+    justifyContent: "space-between",
     marginBottom:50
   },
   image: {
     marginBottom: 40,
   },
   radioView: {
-    backgroundColor: "#FFC0CB",
+    backgroundColor: "white",
     borderRadius: 30,
     width: "100%",
-    height: 90,
+    height:55,
     marginBottom: 20,
-    alignItems: "center",
+    alignSelf:"auto"
   },
   inputView: {
+    flex:1,
+    flexDirection:"row",
     backgroundColor: "#FFC0CB",
     borderRadius: 30,
     width: "70%",
@@ -238,19 +239,15 @@ const styles = StyleSheet.create({
     alignItems: "center",
   },
   TextInput: {
-    height: 50,
+    height: 70,
     flex: 1,
     padding: 10,
     marginLeft: 20,
   },
-  forgot_button: {
-    height: 30,
-    marginBottom: 30,
-  },
   loginBtn: {
     width: "70%",
     borderRadius: 25,
-    height: 50,
+    height: 45,
     alignItems: "center",
     justifyContent: "center",
     backgroundColor: "#FF1493",
