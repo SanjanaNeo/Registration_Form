@@ -4,6 +4,7 @@ import RadioGroup from 'react-native-radio-buttons-group';
 import { useValidation } from 'react-native-form-validator'
 import * as ImagePicker from 'expo-image-picker';
 import Icon from 'react-native-vector-icons/FontAwesome'
+import UploadImage from "./UploadImage";
 import {
   StyleSheet,
   Text,
@@ -86,10 +87,7 @@ function onPressRadioButton(radioButtonsArray) {
       <Text style={{fontWeight:"bold",fontSize:25,marginBottom:0}}>Register</Text>
       
       
-      <View style={{alignItems: 'center', justifyContent: 'center' }}>
-      <Button title="Pick an image from camera roll" onPress={pickImage} />
-      {image && <Image source={{ uri: image }} style={{ width: 80, height: 80 }} />}
-    </View>
+      <UploadImage/>
       
       <View style={styles.inputView}>
       <Icon name="user" size={30} color="#900" style={{padding:10}}/>
