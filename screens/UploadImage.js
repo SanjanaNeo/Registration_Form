@@ -16,6 +16,7 @@ export default function UploadImage() {
       setImage(_image.uri);
     }
   };
+  
   const  checkForCameraRollPermission=async()=>{
     const { status } = await ImagePicker.getMediaLibraryPermissionsAsync();
     if (status !== 'granted') {
